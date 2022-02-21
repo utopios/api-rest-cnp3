@@ -14,6 +14,7 @@ import java.util.List;
 @RequestMapping("/api/v1/clients")
 public class ClientController {
 
+    //Annotation pour demander au conteneur spring de créer un objet pour nous (soit à partir d'une classe ou d'une interface)
     @Autowired
     private ClientRepository clientRepository;
 
@@ -45,7 +46,11 @@ public class ClientController {
     //Modifier un client
     @PutMapping("/{id}")
     public String putClient(@PathVariable("id") Integer id, @RequestBody Client client) {
-
+        Client clientExist = clientRepository.findById(id).get();
+        clientExist.setNom(client.getNom());
+        clientExist.setPrenom(client.getPrenom());
+        clientExist.setTelephone(client.getTelephone());
+        clientRepository.save(clientExist);
         return "ok put "+id;
     }
 

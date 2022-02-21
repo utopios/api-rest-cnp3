@@ -1,10 +1,21 @@
 package com.cnp.demofromationapirest.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "client")
 public class Client {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_client")
     private int id;
+
+    @Column(name = "nom_client")
     private String nom;
+    @Column(name = "prenom_client")
     private String prenom;
+    @Column(name = "telephone_client")
     private String telephone;
 
     public Client() {

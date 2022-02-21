@@ -1,6 +1,8 @@
 package com.cnp.demofromationapirest.controller;
 
 import com.cnp.demofromationapirest.model.Client;
+import com.cnp.demofromationapirest.repository.ClientRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +13,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/clients")
 public class ClientController {
+
+    @Autowired
+    private ClientRepository clientRepository;
+
 
     //Récupérer la totalité des clients
     @GetMapping("")
@@ -31,7 +37,8 @@ public class ClientController {
     //Ajouter un client
     @PostMapping("")
     public ResponseEntity<Client> postClient(@RequestBody Client client) {
-        client.setId(2);
+       //On enregistre le client dans la base à l'aide de notre repository
+        clientRepository.save(client);
         return new ResponseEntity<>(client, HttpStatus.OK);
     }
 

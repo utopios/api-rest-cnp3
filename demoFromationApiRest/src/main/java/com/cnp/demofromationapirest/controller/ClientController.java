@@ -20,9 +20,11 @@ public class ClientController {
 
 
     //Récupérer un client par son id
-    @GetMapping("/1")
-    public ResponseEntity<Client> getClient() {
-        return new ResponseEntity<>(new Client("toto","tata","0123456789"), HttpStatus.OK);
+    @GetMapping("/{id}")
+    public ResponseEntity<Client> getClient(@PathVariable("id") Integer id) {
+        Client client = new Client("toto","tata","0123456789");
+        client.setId(id);
+        return new ResponseEntity<>(client, HttpStatus.OK);
     }
 
 
@@ -34,15 +36,17 @@ public class ClientController {
     }
 
     //Modifier un client
-    @PutMapping("/1")
-    public String putClient(Client client) {
-        return "ok put";
+    @PutMapping("/{id}")
+    public String putClient(@PathVariable("id") Integer id, @RequestBody Client client) {
+
+        return "ok put "+id;
     }
 
     //Supprimer un client
-    @DeleteMapping("/1")
-    public String deleteClient() {
-        return  "ok delete";
+    @DeleteMapping("/{id}")
+    public String deleteClient(@PathVariable("id") Integer id) {
+
+        return  "ok delete "+id;
     }
 
 }

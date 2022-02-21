@@ -1,5 +1,6 @@
 package com.cnp.demofromationapirest.controller;
 
+import com.cnp.demofromationapirest.model.Client;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,27 +14,28 @@ public class ClientController {
 
     //Récupérer la totalité des clients
     @GetMapping("")
-    public List<String> getClients() {
+    public List<Client> getClients() {
         return new ArrayList<>();
     }
 
 
     //Récupérer un client par son id
     @GetMapping("/1")
-    public ResponseEntity<String> getClient() {
-        return new ResponseEntity<>("client 1", HttpStatus.UNAUTHORIZED);
+    public ResponseEntity<Client> getClient() {
+        return new ResponseEntity<>(new Client("toto","tata","0123456789"), HttpStatus.OK);
     }
 
 
     //Ajouter un client
     @PostMapping("")
-    public String postClient() {
-        return "Ok";
+    public ResponseEntity<Client> postClient(@RequestBody Client client) {
+        client.setId(2);
+        return new ResponseEntity<>(client, HttpStatus.OK);
     }
 
     //Modifier un client
     @PutMapping("/1")
-    public String putClient() {
+    public String putClient(Client client) {
         return "ok put";
     }
 

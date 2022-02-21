@@ -1,5 +1,7 @@
 package com.cnp.demofromationapirest.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -18,8 +20,8 @@ public class ClientController {
 
     //Récupérer un client par son id
     @GetMapping("/1")
-    public String getClient() {
-        return "un client";
+    public ResponseEntity<String> getClient() {
+        return new ResponseEntity<>("client 1", HttpStatus.UNAUTHORIZED);
     }
 
 

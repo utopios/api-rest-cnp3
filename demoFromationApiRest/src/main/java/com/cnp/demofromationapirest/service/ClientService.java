@@ -1,5 +1,6 @@
 package com.cnp.demofromationapirest.service;
 
+import com.cnp.demofromationapirest.dto.ClientDTO;
 import com.cnp.demofromationapirest.model.Client;
 import com.cnp.demofromationapirest.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ public interface ClientService {
 
     public List<Client> getAllClient();
 
-    public Client getClientById(int id);
+    public ClientDTO getClientById(int id);
 
     public Client updateClient(Client client, int id) ;
 

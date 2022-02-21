@@ -1,8 +1,10 @@
 package com.cnp.demofromationapirest.service.imp;
 
+import com.cnp.demofromationapirest.dto.ClientDTO;
 import com.cnp.demofromationapirest.model.Client;
 import com.cnp.demofromationapirest.repository.ClientRepository;
 import com.cnp.demofromationapirest.service.ClientService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +21,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Client getClientById(int id) {
-        return clientRepository.findById(id).get();
+    public ClientDTO getClientById(int id) {
+        return new ModelMapper().map(clientRepository.findById(id).get(), ClientDTO.class);
     }
 
     @Override

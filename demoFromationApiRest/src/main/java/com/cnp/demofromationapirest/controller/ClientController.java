@@ -1,5 +1,6 @@
 package com.cnp.demofromationapirest.controller;
 
+import com.cnp.demofromationapirest.dto.ClientDTO;
 import com.cnp.demofromationapirest.model.Client;
 import com.cnp.demofromationapirest.repository.ClientRepository;
 import com.cnp.demofromationapirest.service.ClientService;
@@ -30,10 +31,10 @@ public class ClientController {
 
     //Récupérer un client par son id
     @GetMapping("/{id}")
-    public ResponseEntity<Client> getClient(@PathVariable("id") Integer id) {
+    public ResponseEntity<ClientDTO> getClient(@PathVariable("id") Integer id) {
 
        // Client client = clientRepository.findById(id).get();
-        Client client = clientService.getClientById(id);
+        ClientDTO client = clientService.getClientById(id);
         return new ResponseEntity<>(client, HttpStatus.OK);
     }
 

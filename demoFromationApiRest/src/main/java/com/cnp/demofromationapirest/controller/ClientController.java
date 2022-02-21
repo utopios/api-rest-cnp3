@@ -21,15 +21,15 @@ public class ClientController {
     //Récupérer la totalité des clients
     @GetMapping("")
     public List<Client> getClients() {
-        return new ArrayList<>();
+        return (List<Client>) clientRepository.findAll();
     }
 
 
     //Récupérer un client par son id
     @GetMapping("/{id}")
     public ResponseEntity<Client> getClient(@PathVariable("id") Integer id) {
-        Client client = new Client("toto","tata","0123456789");
-        client.setId(id);
+
+        Client client = clientRepository.findById(id).get();
         return new ResponseEntity<>(client, HttpStatus.OK);
     }
 
@@ -52,7 +52,8 @@ public class ClientController {
     //Supprimer un client
     @DeleteMapping("/{id}")
     public String deleteClient(@PathVariable("id") Integer id) {
-
+        Client client = clientRepository.findById(id).get();
+        clientRepository.delete(client);
         return  "ok delete "+id;
     }
 

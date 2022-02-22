@@ -8,6 +8,7 @@ import com.cnp.demofromationapirest.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -48,6 +49,8 @@ public class ClientController {
 
 
     //Ajouter un client
+
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("")
     public ResponseEntity<Client> postClient(@RequestBody Client client) {
        //On enregistre le client dans la base à l'aide de notre repository

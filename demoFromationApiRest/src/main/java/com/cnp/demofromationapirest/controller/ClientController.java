@@ -1,6 +1,7 @@
 package com.cnp.demofromationapirest.controller;
 
 import com.cnp.demofromationapirest.dto.ClientDTO;
+import com.cnp.demofromationapirest.exception.CustomNotFoundException;
 import com.cnp.demofromationapirest.model.Client;
 import com.cnp.demofromationapirest.repository.ClientRepository;
 import com.cnp.demofromationapirest.service.ClientService;
@@ -31,11 +32,18 @@ public class ClientController {
 
     //Récupérer un client par son id
     @GetMapping("/{id}")
-    public ResponseEntity<ClientDTO> getClient(@PathVariable("id") Integer id) {
+    public ResponseEntity<?> getClient(@PathVariable("id") Integer id) {
 
        // Client client = clientRepository.findById(id).get();
-        ClientDTO client = clientService.getClientById(id);
-        return new ResponseEntity<>(client, HttpStatus.OK);
+        try {
+            ClientDTO client = clientService.getClientById(id);
+            //Service 2 Adresse par exemple
+            return new ResponseEntity<>(client, HttpStatus.OK);
+        }catch (CustomNotFoundException ex) {
+            return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
+        }catch(Exception ex) {
+            return new ResponseEntity<>(ex.getMessage(),HttpStatus.UNAUTHORIZED);
+        }
     }
 
 

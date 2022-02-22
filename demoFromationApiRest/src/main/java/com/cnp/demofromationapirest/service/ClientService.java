@@ -14,7 +14,7 @@ public interface ClientService {
 
     public List<Client> getAllClient();
 
-    public ClientDTO getClientById(int id);
+    public ClientDTO getClientById(int id) throws Exception;
 
     public Client updateClient(Client client, int id) ;
 

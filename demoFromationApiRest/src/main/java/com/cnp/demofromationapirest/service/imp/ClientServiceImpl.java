@@ -1,6 +1,7 @@
 package com.cnp.demofromationapirest.service.imp;
 
 import com.cnp.demofromationapirest.dto.ClientDTO;
+import com.cnp.demofromationapirest.exception.CustomNotFoundException;
 import com.cnp.demofromationapirest.model.Client;
 import com.cnp.demofromationapirest.repository.ClientRepository;
 import com.cnp.demofromationapirest.service.ClientService;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClientServiceImpl implements ClientService {
@@ -21,8 +23,12 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public ClientDTO getClientById(int id) {
-        return new ModelMapper().map(clientRepository.findById(id).get(), ClientDTO.class);
+    public ClientDTO getClientById(int id) throws Exception {
+        Optional<Client> clientOptional = clientRepository.findById(id);
+        if(!clientOptional.isPresent()) {
+            throw new CustomNotFoundException();
+        }
+        return new ModelMapper().map(clientOptional.get(), ClientDTO.class);
     }
 
     @Override
